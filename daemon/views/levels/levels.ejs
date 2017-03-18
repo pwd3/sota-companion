@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<%#
+ * 
+ *  Copyright 2017 Philip W. Dalrymple III
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     A copy of the license is shipped with this software in the file
+ *     called:
+ *
+ *     LICENSE -- Which can be found in the root of the distribution.
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ * %>
+<html>
+<head>
+	<%include ../core/css/static.ejs %>
+	</head>
+	<%include ../core/head.ejs %>
+<body>
+	<div id='btn-bar-sticky' style="display:block" class="buttons-show">
+		<span class='span-left'>
+			<a class="btn btn-default button2 menu-open" id='menu-a' href="#">
+				<i class="fa fa-2x fa-bars  button1 menu-open" id='menu-i' title="Menu" ></i>
+				</a>
+			</span>
+		</div>
+	<h2 id='head'>Level Changes for <%= pdata.data.avatar %> </h2>
+	<div class='levels-div'>
+		<table id='levels' class='display' width='98%' cellspacing='0'>
+			<thead>
+				<th>When</th>
+				<th>Time</th>
+				<th>Skill</th>
+				<th>Direction</th>
+				<th>Now At</th>
+				</thead>
+			<tfoot>
+				<th>When</th>
+				<th>Time</th>
+				<th>Skill</th>
+				<th>Direction</th>
+				<th>Now At</th>
+				</tfoot>
+			</table>
+		</div>
+	<%- menusul %>
+	<%include ../core/js/static.ejs %>
+	<%include ../core/menu-js.ejs %>
+	<%include ../core/foot.ejs %>
+	<script src="/js/levels/levels.js"></script>
+	</body>
+</html>
+
+

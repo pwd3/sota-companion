@@ -1,0 +1,41 @@
+/* 
+ * THIS IS THE BASE FOR ALL CSS FILES, DO NOT IMPORT OR LINK THIS FILE
+ *
+ *	It is the starting place for all Primary CSS files
+ *
+ * 	The following WHERE the import, need to be in the *?/css/?*.ejs
+		@import "bootstrap.css";
+		@import "font-awesome.css";
+		@import "gridstack.css";
+		@import "jquery-ui.css";
+ * 	Add any import above (must be first) and any details below
+ * */
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Regular.ttf);
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Regular.ttf);
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Bold.ttf);
+	font-weight: bold;
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-BoldItalic.ttf);
+	font-weight: bold;
+	font-style: oblique;
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Italic.ttf);
+	font-style: oblique;
+	}
+body {
+	font: 14px Noto-sans, sans-serif;
+	margin: 30px;
+	}
+

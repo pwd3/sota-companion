@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<%#
+ * 
+ *  Copyright 2017 Philip W. Dalrymple III
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     A copy of the license is shipped with this software in the file
+ *     called:
+ *
+ *     LICENSE -- Which can be found in the root of the distribution.
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ * %>
+<html>
+<head>
+	<%include ../core/css/static.ejs %>
+	</head>
+	<%include ../core/head.ejs %>
+<body>
+	<div id='btn-bar-sticky' style="display:block" class="buttons-show">
+		<span class='span-left'>
+			<a class="btn btn-default button2 menu-open" id='menu-a' href="#">
+				<i class="fa fa-2x fa-bars  button1 menu-open" id='menu-i' title="Menu" ></i>
+				</a>
+			<a class="btn btn-default button2" id="upload-a" onClick='upload()' href="#">
+				<i class="fa fa-2x fa-cloud-upload button1" id='upload-i' title="Save Changes"></i>
+				</a>
+			</span>
+		</div>
+	<h2 id='head'>Welcome to the Shroud of the Avatar Companion</h2>
+	<h3 id='pmsg' class='profilemessage'></h3>
+	<p> <table class='detail-table'>
+
+			<tr>
+			<th>SotA Data Directory</th>
+			<td><input type='text' name='datadir' id='datadir' size='45' value='<%= config.datadir %>' /></td>
+			<td class='itemnote'>Enter the full path to the directory with the CurrentPlayerData.xml file (in game type RETURN /datafolder to open this directory)<br /></td>
+			</tr>
+
+			<tr>
+			<th>Web Port</th>
+			<td><input type='text' name='wwwport' id='wwwport' size='15' value='<%= config.www.port %>' /></td>
+			<td class='itemnote'>The Port that SotA Companion will listen to from your browser<br /></td>
+			</tr>
+
+			<tr>
+			<th>Show Hit Days</th>
+			<td><input type='text' name='showhitdays' id='showhitdays' size='5' value='<%= config.showhitdays %>' /></td>
+			<td class='itemnote'>The number of days of hit data to show.<br /></td>
+			</tr>
+
+			<tr>
+			<th>Sweep Hit Days</th>
+			<td><input type='text' name='sweephitdays' id='sweephitdays' size='5' value='<%= config.sweep.hitdays %>' /></td>
+			<td class='itemnote'>The number of days of hit data to keep in the database.<br /></td>
+			</tr>
+
+			<tr>
+			<th>Sweep Stats Days</th>
+			<td><input type='text' name='sweepstatdays' id='sweepstatdays' size='5' value='<%= config.sweep.statdays %>' /></td>
+			<td class='itemnote'>The number of days of stats data to keep in the database.<br /></td>
+			</tr>
+
+			<tr>
+			<th>Sweep Level Days</th>
+			<td><input type='text' name='sweepleveldays' id='sweepleveldays' size='5' value='<%= config.sweep.leveldays %>' /></td>
+			<td class='itemnote'>The number of days of level data to keep in the database.<br /></td>
+			</tr>
+
+		</table> </p>
+	<%- menusul %>
+	<%include ../core/js/static.ejs %>
+	<%include ../core/menu-js.ejs %>
+	<%include ../core/foot.ejs %>
+	<script type="text/javascript">
+		<%include profile-js.ejs %>
+		</script>
+	</body>
+</html>
+

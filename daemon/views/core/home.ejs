@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<%#
+ * 
+ *  Copyright 2017 Philip W. Dalrymple III
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     A copy of the license is shipped with this software in the file
+ *     called:
+ *
+ *     LICENSE -- Which can be found in the root of the distribution.
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ * %>
+<html>
+<head>
+	<%include ../core/css/static.ejs %>
+	</head>
+	<%include ../core/head.ejs %>
+<body>
+	<div id='btn-bar-sticky' style="display:block" class="buttons-show">
+		<span class='span-left'>
+			<a class="btn btn-default button2 menu-open" id='menu-a' href="#">
+				<i class="fa fa-2x fa-bars  button1 menu-open" id='menu-i' title="Menu" ></i>
+				</a>
+			</span>
+		</div>
+		<h2 id='head'>Welcome <%= pdata.data.avatar %> (<%= pdata.data.playerid %>)</h2>
+		<h3 >When last playing you where in <%= pdata.data.map %></h3>
+		<h4>Location X=<%= pdata.data.x %>, Y=<%= pdata.data.y %>, Z=<%= pdata.data.z %></h4>
+		<% if( laststat) { %>
+		<h2>Latest Stats for <%= pdata.data.avatar %><h2>
+		<h4>Stats logged at <%= laststat %> </h4>
+		<table class='item-table'>
+			<tr>
+			<% 
+			var i = -1;
+			statlist.forEach(function(itm) {
+				i++;
+				%>
+				<td>
+					<%= itm.label %> : <%= stats[itm.key] %>
+				</td>
+				<% if((i % 4) == 3){ %></tr><tr> <% } %>
+
+				<% }) %>
+				</tr>
+			</table>
+			<% } else { %>
+			<h2>NO Stats in the chat logs for <%= pdata.data.avatar %> </h2>
+			<h3>In game type RETURN then /stat to add to chat log</h3>
+			<% } %>
+	<%- menusul %>
+	<%include ../core/js/static.ejs %>
+	<%include ../core/menu-js.ejs %>
+	<%include ../core/foot.ejs %>
+	</body>
+</html>
+

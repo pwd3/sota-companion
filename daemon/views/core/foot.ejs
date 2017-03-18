@@ -1,0 +1,57 @@
+<%#
+ * 
+ *  Copyright 2017 Philip W. Dalrymple III
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     A copy of the license is shipped with this software in the file
+ *     called:
+ *
+ *     LICENSE -- Which can be found in the root of the distribution.
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ * %>
+	<hr style='color: #474747; background-color: #474747; height: 5px;'/>
+	<div>
+	<p class="foot-text">
+		<span class="foot-left">
+			Copyright &copy; 2017 Philip W. Dalrymple III All Rights Reserved Worldwide.
+			<br />
+			Licensed under The Artistic License 2.0; see file LICENSE in root of distribution.
+			</span>
+		<span class="foot-logo">
+			<a class="foot-a" href="/">
+				<img src="/images/sota-comp.png" height=69 width=149 />
+				</a>
+			</span>
+		</p>
+	</div>
+	<div id='growl-div'></div>
+	<div id="motd-diag" title="Message for You>
+		<div id="motd-diag-inner"> </div>
+		</div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#btn-bar-sticky').puisticky();
+			$('#growl-div').puigrowl({
+				life: 6000
+				});
+			$( "#motd-diag" ).dialog({
+				autoOpen: false,
+				modal: true,
+				width: 600,
+				buttons: [
+					{
+						text: "Acknowledged",
+						click: function() {
+							$( this ).dialog( "close" );
+							}
+						}
+					]
+				});
+			});
+	</script>

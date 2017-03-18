@@ -1,0 +1,24 @@
+/* The growler background and forground color (need different background for each type */
+.ui-growl-message-info {
+	background: green none repeat scroll 0 0;
+	color: black;
+	}
+.ui-growl-message-warn {
+	background: yellow none repeat scroll 0 0;
+	color: black;
+	}
+.ui-growl-message-error {
+	background: red none repeat scroll 0 0;
+	color: black;
+	}
+
+/* size of the growler  looks like the outside should be 81 bigger than inside*/
+.ui-growl {
+	width: 701px;
+	}
+
+.ui-growl-message {
+	width: 620px;
+	}
+
+

@@ -1,0 +1,61 @@
+{
+	"version": "2017.01",
+	"routes": [
+		{
+			"url": "/hits/hits",
+			"code": "./routes/hits/hits"
+			},
+		{
+			"url": "/hits/ajax/hits",
+			"code": "./routes/hits/ajax/hits"
+			},
+		{
+			"url": "/levels/levels",
+			"code": "./routes/levels/levels"
+			},
+		{
+			"url": "/levels/ajax/levels",
+			"code": "./routes/levels/ajax/levels"
+			},
+		{
+			"url": "/core/ajax/config",
+			"code": "./routes/core/ajax/config"
+			},
+		{
+			"url": "/core/ajax/cfgupdate",
+			"code": "./routes/core/ajax/cfgupdate"
+			},
+		{
+			"url": "/profile",
+			"code": "./routes/core/profile"
+			},
+		{
+			"url": "/",
+			"code": "./routes/core/home"
+			}
+		],
+
+	"menus": [
+		{
+			"url": "/",
+			"icon": "",
+			"title": "Home"
+			},
+		{
+			"url": "/levels/levels",
+			"icon": "",
+			"title": "Training Level Changes"
+			},
+		{
+			"url": "/hits/hits",
+			"icon": "",
+			"title": "Your Hits"
+			},
+		{
+			"url": "/profile",
+			"icon": "",
+			"title": "Profile"
+			}
+		]
+	}
+

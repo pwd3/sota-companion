@@ -1,0 +1,140 @@
+/*
+ * 
+ *  Copyright 2017 Philip W. Dalrymple III
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     A copy of the license is shipped with this software in the file
+ *     called:
+ *
+ *     LICENSE -- Which can be found in the root of the distribution.
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ */
+
+
+// --------------------------------------------
+// System Watchdog (keeps the node server running
+// 	and restarts it when things change 
+// --------------------------------------------
+
+
+
+var forever = require('forever-monitor');
+var path = require('path');
+var fs = require('fs');
+var winston = require('winston');
+var debug = require('debug')('daemon:watchdog');
+var jsonfile = require('jsonfile');
+
+// this should be a real path maybe
+var serverroot = path.join(__dirname, '..');
+
+
+var logloc = 'watchdog';
+// we will need the logdirectory
+var logdir = path.join(serverroot, '../logs');
+fs.existsSync(logdir) || fs.mkdirSync(logdir);
+
+var logger = new (winston.Logger)({
+	transports: [
+		new (winston.transports.File)({
+			name: 'watchdog-file',
+			filename: logdir + '/watchdog.log',
+			level: 'debug'
+			})
+		]
+	});
+
+
+
+/**
+ * 	if config file does not exist then create it first
+ */
+var cfgfile = path.join(__dirname, '../config/config.json');
+
+if(! fs.existsSync(cfgfile)) {
+	var cf = {
+		www: {
+			port: 14444
+			},
+		datadir: ''
+
+		};
+	jsonfile.writeFileSync(cfgfile, cf, {spaces: 4});
+	}
+
+var scriptloc = path.join(serverroot, '/bin/www');
+
+var envor = {
+	};
+if(process.env.DEBUG) envor.DEBUG = process.env.DEBUG;
+if(fs.existsSync(cfgfile)) {
+	var child = forever.start(scriptloc, {
+		watch: true,               // Value indicating if we should watch files.
+		watchIgnoreDotFiles: true, // Whether to ignore file starting with a '.'
+		watchIgnorePatterns: null, // Ignore patterns to use when watching files.
+		watchDirectory: serverroot,
+		cwd: serverroot,
+		env: envor
+		});
+
+	child.on('error', function(err) {
+		console.error('Watchdog Error %j', err);
+		logger.log('error','Watchdog Error %j ', err, {
+			type: 'child-error',
+			url: 'N/A',
+			logloc: logloc,
+			err: err
+			});
+		});
+
+	child.on('start', function() {
+		debug('Starting Server');
+		logger.log('info','Starting Server', {
+			type: 'start',
+			url: 'N/A',
+			logloc: logloc
+			});
+		});
+
+
+	child.on('watch:restart', function(info) {
+		debug('Watchdog restart on watch %j', info );
+		logger.log('error','Watchdog restart on watch %j ', info, {
+			type: 'child-watch',
+			url: 'N/A',
+			logloc: logloc,
+			info: info
+			});
+		});
+
+	child.on('restart', function() {
+		debug('Watchdog restart count %d',child.times );
+		logger.log('error','Watchdog restart count %d ', child.times, {
+			type: 'child-restart',
+			sid: 'N/A',
+			url: 'N/A',
+			logloc: logloc,
+			times: child.times
+			});
+		});
+
+	child.on('exit:code', function(code) {
+		debug('Server exited with code %d ',code );
+		logger.log('info','Server exited with code %d ', code, {
+			type: 'child-exit',
+			sid: 'N/A',
+			url: 'N/A',
+			logloc: logloc,
+			code: code
+			});
+		});
+	}
+else {
+	console.error('Config file %j missing and unable to create it', cfgfile);
+	}

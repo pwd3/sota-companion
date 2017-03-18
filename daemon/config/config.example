@@ -1,0 +1,12 @@
+{
+    "www": {
+        "port": 14444
+    },
+    "datadir": "",
+    "sweep": {
+        "hitdays": 20,
+        "statdays": 60,
+        "leveldays": 600
+    },
+    "showhitdays": 10
+}

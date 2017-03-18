@@ -1,0 +1,142 @@
+<%#
+ * 
+ *  Copyright 2017 Philip W. Dalrymple III
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     A copy of the license is shipped with this software in the file
+ *     called:
+ *
+ *     LICENSE -- Which can be found in the root of the distribution.
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ * %>
+var ajaxurl ='/core/ajax/config/';
+var cfgdata = {};
+
+//////////////////////////////////////////////////////////////////
+function upload() {
+
+	//alert(" got upload");
+	var url = '/core/ajax/cfgupdate';
+
+	var dogrowl = false;
+	var growldata = [];
+	if(! $.isNumeric(cfgdata.data.www.port)) {
+		dogrowl = true;
+		growldata.push({
+			severity: 'error',
+			summary: 'Non Numeric Data in port',
+			detail: `Port must be a number`
+			});
+		}
+	if(! cfgdata.data.datadir) {
+		dogrowl = true;
+		growldata.push({
+			severity: 'error',
+			summary: 'Data Directory Missing',
+			detail: `You must enter a Data Directory`
+			});
+		}
+	if(dogrowl) {
+		$('#growl-div').puigrowl('show',growldata);
+		}
+	else {
+		$('#pmsg').replaceWith(`<h3 id='pmsg' class='profilemessage'></h3>`); 
+		$.ajax({
+			type: 'POST',
+			url: url,
+			dataType: 'json',
+			data: {item: JSON.stringify(cfgdata)},
+			success: function(rdata) {
+				isdirty = false;
+				if(rdata.growler.enabled) {
+					$('#growl-div').puigrowl('show',[
+						{ 
+							severity: rdata.growler.level,
+							summary: rdata.growler.summary,
+							detail: rdata.growler.detail
+							}
+						]);
+					}
+				cfgdata.data = rdata.data;
+				cfgdata.msg = rdata.msg;
+				refresh();
+				}
+			});
+		}
+	}
+//////////////////////////////////////////////////////////////////
+// Update cfg data with entered data
+$('#datadir').change( function () {
+	isdirty = true;
+	cfgdata.data.datadir = $('#datadir').val();
+	refresh();
+	});
+$('#wwwport').change( function () {
+	isdirty = true;
+	cfgdata.data.www.port = $('#wwwport').val();
+	refresh();
+	});
+$('#showhitdays').change( function () {
+	//alert("got change on showhitdays");
+	isdirty = true;
+	cfgdata.data.showhitdays = $('#showhitdays').val();
+	refresh();
+	});
+$('#sweephitdays').change( function () {
+	isdirty = true;
+	cfgdata.data.sweep.hitdays = $('#sweephitdays').val();
+	refresh();
+	});
+$('#sweepstatdays').change( function () {
+	isdirty = true;
+	cfgdata.data.sweep.statdays = $('#sweepstatdays').val();
+	refresh();
+	});
+$('#sweepleveldays').change( function () {
+	isdirty = true;
+	cfgdata.data.sweep.leveldays = $('#sweepleveldays').val();
+	refresh();
+	});
+//////////////////////////////////////////////////////////////////
+// ON FINISHED LOADING!!
+$(function() {
+	$('#item').puitabview();
+	$('#ajax').val('loading data');
+	// need to run it once at the start (after that
+	// 	we  will call on change)
+	$.getJSON(ajaxurl, function (d) {
+		cfgdata = d;
+		refresh();
+		});
+	});
+//////////////////////////////////////////////////////////////////
+function refresh() {
+	$('#pmsg').replaceWith(`<h3 id='pmsg' class='profilemessage'>${ cfgdata.msg }</h3>`); 
+	//alert('in refresh wit msg ' + cfgdata.msg);
+	// for some reason we need to also do it in about 1/2 second
+	//setTimeout(function() {
+	//	$('#pmsg').replaceWith(`<h3 id='pmsg' class='profilemessage'>${ cfgdata.msg }</h3>`); 
+	//	},500);
+
+	// stuff for the general tab
+	$('#datadir').val(cfgdata.data.datadir);
+	$('#wwwport').val(cfgdata.data.www.port);
+	$('#showhitdays').val(cfgdata.data.showhitdays);
+	$('#sweephitdays').val(cfgdata.data.sweep.hitdays);
+	$('#sweepstatdays').val(cfgdata.data.sweep.statdays);
+	$('#sweepleveldays').val(cfgdata.data.sweep.leveldays);
+	// Stuff for the upload button
+	if(isdirty) {
+		$('#upload-i').addClass('button-dirty');
+		}
+	else {
+		$('#upload-i').removeClass('button-dirty');
+		}
+	};
+

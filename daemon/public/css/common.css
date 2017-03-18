@@ -1,0 +1,384 @@
+/*
+ * 
+ *  Copyright 2017 Philip W. Dalrymple III
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     A copy of the license is shipped with this software in the file
+ *     called:
+ *
+ *     LICENSE -- Which can be found in the root of the distribution.
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ */
+
+/* 
+ * This is the CSS for ALL pages (the common css that has
+ * 	stuff that is needed everplace)
+ * */
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Regular.ttf);
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Regular.ttf);
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Bold.ttf);
+	font-weight: bold;
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-BoldItalic.ttf);
+	font-weight: bold;
+	font-style: oblique;
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Italic.ttf);
+	font-style: oblique;
+	}
+body {
+	font: 14px Noto-sans, sans-serif;
+	margin: 30px;
+	}
+
+/* 
+ * The Growler, MOTD, and Timeout styles
+ *
+ * 	The growler background and forground color 
+ * 	(need different background for each type 
+ */
+.ui-growl-message-info {
+	background: #7fffd4 none repeat scroll 0 0;
+	color: black;
+	}
+.ui-growl-message-warn {
+	background: yellow none repeat scroll 0 0;
+	color: black;
+	}
+.ui-growl-message-error {
+	background: #dc143c none repeat scroll 0 0;
+	color: white;
+	}
+
+/* size of the growler  looks like the outside should be 81 bigger than inside*/
+.ui-growl {
+	width: 701px;
+	}
+
+.ui-growl-message {
+	width: 620px;
+	}
+
+/* need to get rid of the close on the header */
+.ui-dialog-titlebar-close {
+	display:none
+	}
+/* need to make the buttons on dialog look better */
+.ui-dialog-buttonpane .ui-button {
+	font-family: Noto-san, sans-serif;
+	font-weight: bold;
+	font-style: oblique;
+	font-size: 12px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	}
+/* base css for the motd dialog */
+.motd-diag-inner {
+	font-family: Noto-san, sans-serif;
+	font-size: 12px;
+	}
+.motd-h-important {
+	font-family: Noto-san, sans-serif;
+	font-weight: bold;
+	color: red;
+	font-size: 14px;
+	}
+.motd-important {
+	font-family: Noto-san, sans-serif;
+	color: red;
+	font-size: 12px;
+	}
+.timeout-h {
+	font-family: Noto-san, sans-serif;
+	font-weight: bold;
+	color: red;
+	font-size: 14px;
+	}
+.timeout-p {
+	font-family: Noto-san, sans-serif;
+	color: red;
+	font-size: 12px;
+	}
+/*
+ * The styles for the Headder and Footer
+ */
+.head-left {
+	font-family: Noto-san, sans;
+	text-align: left;
+	float: left;
+	width: '50%';
+	}
+.head-right {
+	text-align: right;
+	font-family: Noto-san, sans;
+	font-size: 12px;
+	float: right;
+	width: '50%';
+	}
+.head-div {
+	}
+.head-uid {
+	font-family: Noto-san, sans;
+	font-size: 16px;
+	font-style: oblique;
+	position: relative;
+	bottom: 10px;
+	}
+.head-h1 {
+	padding-left: 15px;
+	margin-left: 15px;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	}
+.head-b1 { 
+	background-color: #ffffff;
+	border-radius: 3px;
+	cursor: pointer;
+	color: #075717;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-left: 8px;
+	margin-right: 0px;
+	}
+.head-b1 { 
+	background-color: #ffffff;
+	border-color: #ffffff;
+	color: #075717;
+	padding: 0px;
+	}
+.foot-text {
+	font-family: Noto-san, sans;
+	font-size: 12px;
+	}
+.foot-a {
+	color: #2c3e50;;
+	}
+.foot-a:visited {
+	color: #2c3e50;;
+	}
+.foot-left {
+	text-align: left;
+	float: left;
+	width: '50%';
+	}
+.foot-logo {
+	text-align: right;
+	float: right;
+	width: '50%';
+	margin-bottom: 22px;
+	}
+/* 
+ * Button Bar Styles
+ *
+ */
+
+.buttons-edit {
+	border-radius: 3px;
+	color: white;
+	background-color: #075717;
+	}
+.buttons-show {
+	border-radius: 3px;
+	color: white;
+	background-color: #075717;
+	}
+.span-left {
+	text-align: left;
+	width: '50%';
+	}
+.span-right {
+	text-align: right;
+	float: right;
+	width: '50%';
+	}
+.button1 { 
+	background-color: #075717;
+	border-radius: 3px;
+	cursor: pointer;
+	color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	}
+.button-dirty {
+	background-color: #a00973;
+	}
+.button2 { 
+	background-color: #075717;
+	border-color: #075717;
+	color: white;
+	padding: 0px;
+	}
+.button-menu { 
+	background-color: #075717;
+	cursor: pointer;
+	padding: 5px;
+	}
+.ui-menu {
+	width: 25em;
+	}
+
+/* 
+ * ROLE-BAR Styles
+ */
+.rolebar-div {
+	padding-top: 20px;
+	}
+.rolebar-super {
+	font-family: Noto-san, sans-serif;
+	padding: 10px;
+	margin-left: 50px;
+	margin-right: 50px;
+	font-weight: bold;
+	font-size: 14px;
+	background: #dc143c none repeat scroll 0 0;
+	color: white;
+	}
+.rolebar-other {
+	font-family: Noto-san, sans-serif;
+	padding: 10px;
+	margin-left: 50px;
+	margin-right: 50px;
+	font-weight: bold;
+	font-size: 14px;
+	background: yellow none repeat scroll 0 0;
+	color: black;
+	}
+/*
+ * CSS stuff for the details table, a list of name/value pairs
+ */
+
+.detail-table {
+	border: 3px solid black;
+	border-collapse: collapse;
+	margin-left: 120px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	}
+
+.detail-table td {
+	border: 1px solid black;
+	padding: 5px;
+	}
+
+.detail-table th {
+	border: 1px solid black;
+	font-weight: bold;
+	text-align: right;
+	padding: 5px;
+	}
+/* Class Styles  for tables*/
+.itemnote {
+	vertical-align: bottom;
+	font-family: Noto-san, sans-serif;
+	font-size: 6pt;
+	margin-top: 0px;
+	}
+.error {
+	font-family: Noto-san, sans-serif;
+	font-size: 8pt;
+	color: red;
+	margin-left: 4px;
+	}
+.requirements {
+	font-family: Noto-san, sans-serif;
+	font-size: 6pt;
+	color: green;
+	}
+/*
+ * CSS stuff for the profile page
+ */
+.profilemessage {
+	font-family: Noto-san, sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+	color: red;
+	margin: 50px;
+	}
+/*
+ * CSS stuff for the item table, a set of static (at time of page refresh)
+ * 	columns for data about a small number of things (for large number
+ * 	of thing or things that need to be added to use jQuery elements)
+ */
+
+.item-table {
+	border: 3px solid black;
+	border-collapse: collapse;
+	margin-left: 120px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	}
+
+.item-table td {
+	border: 1px solid black;
+	padding: 5px;
+	}
+
+.item-table th {
+	border: 1px solid black;
+	font-weight: bold;
+	text-align: center;
+	padding: 5px;
+	}
+.item-table-td-c {
+	border: 1px solid black;
+	text-align: center;
+	padding: 5px;
+	}
+/*
+ * CSS for the select type pages
+ */
+.select-div {
+	margin-top: 20px
+	}
+.select-div .dataTables_wrapper {
+	margin-top: 10px
+	}
+/* 
+ * Datepicker
+ * for some reason these are not the right color 
+ */
+.ui-datepicker-month {
+	font-family: Noto-san, sans-serif;
+	font-size: 6pt;
+	color: #337ab7;
+	}
+.ui-datepicker-year {
+	font-family: Noto-san, sans-serif;
+	font-size: 6pt;
+	color: #337ab7;
+	}
+
+/*
+ * styling for the DataTable 
+ *
+ */
+.dataTables_length {
+	margin-right: 50px;
+	}
+.dt-buttons {
+	margin-left: 50px;
+	}

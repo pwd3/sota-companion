@@ -1,0 +1,32 @@
+/* 
+ * This is the CSS for Static Pages (like the terms or the no-perms page
+ * */
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Regular.ttf);
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Regular.ttf);
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Bold.ttf);
+	font-weight: bold;
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-BoldItalic.ttf);
+	font-weight: bold;
+	font-style: oblique;
+	}
+@font-face {
+	font-family: Noto-sans;
+	src: url(../fonts/noto-fonts/NotoSans-Italic.ttf);
+	font-style: oblique;
+	}
+body {
+	font: 14px Noto-sans, sans-serif;
+	margin: 30px;
+	}
+
