@@ -17,6 +17,21 @@ other.
 This package is Open Source under the Artistic License 2.0 and
 you can use it without charge.
 
+## Release History
+
+### 2017.01
+
+First release, tested only on ubuntu, fedora, and Mac OSX.
+
+### 2017.02
+
+Updates to handle the differences in the chat log on windows.
+A startup scirpt for windows was writen by Dr. Nightmare.
+
+Thanks to Dr. Nightmare and Daxxe Diggler for the feedback.
+
+
+
 ## How to download and install
 
 You will need a 5.6 or better version of node.js and npm
@@ -88,6 +103,8 @@ Type in npm start or:
 
 * $env\:DEBUG="daemon:\*" npm start on Windows (Powershell)
 
+There is a Windows BAT script in daemon called npm\_start.bat that can be run with a double click. 
+Thanks to Dr. Nightmare for the script.
 
 ### Point you browser to localhost:14444 
 

@@ -62,26 +62,43 @@ var self = {
 		lr.on('error', function(err) {
 			//console.log("Got error on model/chatlog:parse %j",err);
 			});
-		lr.on('line', function(line) {
+		var linedata = '';
+		var goodline = true;
+		lr.on('line', function(linematch) {
+			if(linematch.match(/AdventurerLevel/) || (! goodline)) {	// WINDOWS continuation line
+				if(goodline) linedata = '';
+				//console.log("Got a windows continue line of %j",linematch);
+				linedata = linedata + linematch.replace(/\r/gm,' ');
+				goodline = false;
+				}
+			else {	// Normal WINDOWS OR unix type line
+				linedata = linematch;
+				goodline = true;
+				}
+			if (linematch.match(/HealModifier/)) {
+				//console.log("Got a finish continue line of %j",linedata);
+				goodline = true;
+				}
 			//console.log("got avatar of %j (%j)",avatar,playerid);
-			//console.log("got line of %j",line);
-			var mtc = line.match(/^\[[APM0-9:\/ -]+\]/);
+			//console.log("got linedata of %j",linedata);
+			var mtc = linedata.match(/^\[[APM0-9:\/ -]+\]/);
 			var when = '2001-01-01';
 			if(mtc) {
 				// some logs are 24 hour some are AM/PM
 				when = moment(mtc[0],'MM-DD-YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-				if(line.match(/[AMP]/)) when = moment(mtc[0],'MM-DD-YYYY hh:mm:ss A').format('YYYY-MM-DD HH:mm:ss');
+				if(linedata.match(/[AMP]/)) when = moment(mtc[0],'MM-DD-YYYY hh:mm:ss A').format('YYYY-MM-DD HH:mm:ss');
 				//console.log("got a when of %j",when);
 				}
-			if(last < when) { // ONLY process lines where they are newer than the last seen (or OLD if doing init)
+			if(last < when && goodline) { // ONLY process lines where they are newer than the last seen (or OLD if doing init)
 				if(retdata.lastseen < when) retdata.lastseen = when;
-				if(line.match(/has increased to level/)) {
-					var av = line.replace(/\'.+$/,'');
-					av = av.replace(/^\[[0-9:\/ -]+\]\s+/,'');
+				if(linedata.match(/has increased to level/)) {
+					var av = linedata.replace(/\'.+$/,'');
+					av = av.replace(/^\[[APM0-9:\/ -]+\]\s+/,'');
+					//console.log("avatar = %j got a level line of %j",av,linedata);
 					if(av == avatar) {
-						var sk = line.replace(/^[^\(]+\(/,'');
+						var sk = linedata.replace(/^[^\(]+\(/,'');
 						var sk = sk.replace(/\).+$/,'');
-						var lv = line.replace(/^.+level /,'');
+						var lv = linedata.replace(/^.+level /,'');
 						var lv = lv.replace(/!$/,'');
 						var level = {
 							skill: sk,
@@ -92,10 +109,10 @@ var self = {
 						db['levels-'+playerid].update({when: when},level,{upsert:true});
 						}
 					}
-				else if(line.match(/and hits, dealing/)) {
-					var by = line.match(/\] (.+) attacks /)[1];
-					var target = line.match(/attacks (.+) and hits/)[1];
-					var damage = line.match(/and hits, dealing (.+)/)[1];
+				else if(linedata.match(/and hits, dealing/)) {
+					var by = linedata.match(/\] (.+) attacks /)[1];
+					var target = linedata.match(/attacks (.+) and hits/)[1];
+					var damage = linedata.match(/and hits, dealing (.+)/)[1];
 					var attack = '';
 					if(damage.match(/ from /)) {
 						attack = damage.match(/from (.+)/)[1];
@@ -110,7 +127,7 @@ var self = {
 					damage = damage.replace(/\s+$/,'');
 
 					if(by.match(playerre)) {
-						//console.log("got hits line %j ",line);
+						//console.log("got hits linedata %j ",linedata);
 						//console.log("Attacker = %j",by);
 						//console.log("Target = %j",target);
 						//console.log("Damage = %j",damage);
@@ -125,10 +142,10 @@ var self = {
 						db['hits-'+playerid].update({when: when},hit,{upsert:true});
 						}
 					}
-				else if(line.match(/^\[[AMP0-9:\/ -]+\]\s+AdventurerLevel:/)) {
+				else if(linedata.match(/^\[[AMP0-9:\/ -]+\]\s+AdventurerLevel:/)) {
 					//console.log("got avatar of %j (%j)",avatar,playerid);
 					//console.log("Got a date of %j",when);
-					var st = line.replace(/^\[[0-9:\/ -]+\]\s+/,'');
+					var st = linedata.replace(/^\[[0-9:\/ -]+\]\s+/,'');
 					retdata.laststat = when;
 					retdata.stats[when] = {
 						when: when
@@ -142,7 +159,7 @@ var self = {
 
 				}
 			});
-		lr.on('end', function(line) {
+		lr.on('end', function(linedata) {
 			//console.log("End of %j",file);
 			setter(retdata);
 			});
